@@ -1,6 +1,7 @@
 <?php
 
-class Village {
+class Village
+{
     private $no;
     private $name;
     private $county;
@@ -16,7 +17,8 @@ class Village {
     private $iconPath;
     private $image_base_url = "https://pakug.com/";
 
-    public function __construct($con, $id) {
+    public function __construct($con, $id)
+    {
         $query = $con->prepare("SELECT * FROM `village` WHERE `no` = :id");
         $query->bindParam(":id", $id);
         $query->execute();
@@ -42,55 +44,72 @@ class Village {
         }
     }
 
-    public function getNo() {
+    public function getNo()
+    {
         return $this->no;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function getCounty() {
+    public function getCounty()
+    {
         return $this->county;
     }
 
-    public function getSubcounty() {
+    public function getSubcounty()
+    {
         return $this->subcounty;
     }
 
-    public function getLong() {
+    public function getLong()
+    {
         return $this->long;
     }
 
-    public function getLat() {
+    public function getLat()
+    {
         return $this->lat;
     }
 
-    public function getPopulation() {
+    public function getPopulation()
+    {
         return $this->population;
     }
 
-    public function getFamilies() {
+    public function getFamilies()
+    {
         return $this->families;
     }
 
-    public function getLastupdate() {
+    public function getLastupdate()
+    {
         return $this->lastupdate;
     }
 
-    public function getSourceWater() {
+    public function getSourceWater()
+    {
         return $this->sourceWater;
     }
 
-    public function getSourceDeepWell() {
+    public function getSourceDeepWell()
+    {
         return $this->sourceDeepWell;
     }
 
-    public function getPriority() {
+    public function getPriority()
+    {
         return $this->priority;
     }
 
     public function getIconPath() {
         return $this->iconPath;
+    }
+
+    public function getSummary()
+    {
+        return "The village of $this->name is located in $this->subcounty, $this->county county. It has a population of $this->population people and $this->families families. The main source of water is $this->sourceWater, and it is $this->priority priority. The last update was on $this->lastupdate";
     }
 }

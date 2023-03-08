@@ -16,6 +16,7 @@ class Models
         $temp['id'] = $village->getNo();
         $temp['name'] = $village->getName();
         $temp['county'] = $village->getCounty();
+        $temp['description'] = $village->getSummary();
         $temp['subcounty'] = $village->getSubcounty();
         $temp['long'] = $village->getLong();
         $temp['lat'] = $village->getLat();

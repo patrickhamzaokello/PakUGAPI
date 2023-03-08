@@ -222,19 +222,19 @@ class Handler
 
         $temp['id'] = 1;
         $temp['name'] = "activity";
-        $temp['iconpath'] = "imagepath.com/imagetwo";
+        $temp['iconpath'] = "https://xyzobide.kakebeshop.com/pakUG/Requests/icons/activity.png";
         $temp['total'] = 8;
         array_push($itemRecords["types"], $temp);
 
         $temp['id'] = 2;
         $temp['name'] = "deepwell";
-        $temp['iconpath'] = "imagepath.com/imagetwo";
+        $temp['iconpath'] = "https://xyzobide.kakebeshop.com/pakUG/Requests/icons/water.png";
         $temp['total'] = 14;
         array_push($itemRecords["types"], $temp);
 
         $temp['id'] = 3;
         $temp['name'] = "village";
-        $temp['iconpath'] = "imagepath.com/imagetwo";
+        $temp['iconpath'] = "https://xyzobide.kakebeshop.com/pakUG/Requests/icons/village.png";
         $temp['total'] = 20;
         array_push($itemRecords["types"], $temp);
 

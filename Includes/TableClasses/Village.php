@@ -15,10 +15,12 @@ class Village
     private $sourceDeepWell;
     private $priority;
     private $iconPath;
+    private $con;
     private $image_base_url = "https://pakug.com/";
 
     public function __construct($con, $id)
     {
+        $this->con = $con;
         $query = $con->prepare("SELECT * FROM `village` WHERE `no` = :id");
         $query->bindParam(":id", $id);
         $query->execute();
@@ -111,5 +113,81 @@ class Village
     public function getSummary()
     {
         return "The village of $this->name is located in $this->subcounty, $this->county county. It has a population of $this->population people and $this->families families. The main source of water is $this->sourceWater, and it is $this->priority priority. The last update was on $this->lastupdate";
+    }
+
+    public function getActivities(): array
+    {
+        $village_activities_array = array();
+        $query = $this->con->prepare("SELECT `id`, `title`, `description`, `dateCarriedout`, `dateCompleted`, `nextDueDate`, `InchargePerson`, `village_no`, `dateAdded`, `long`, `lat`, `iconPath` FROM `activities` WHERE village_no = :village_id ");
+        $query->bindParam(":village_id", $this->no, PDO::PARAM_INT);
+        $query->execute();
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+
+            $temp = array();
+            $temp['id'] = $row['id'];
+            $temp['title'] = $row['title'];
+            $temp['description'] = $row['description'];
+            $temp['dateCarriedout'] = $row['dateCarriedout'];
+            $temp['dateCompleted'] = $row['dateCompleted'];
+            $temp['nextDueDate'] = $row['nextDueDate'];
+            $temp['InchargePerson'] = $row['InchargePerson'];
+            $temp['long'] = $row['long'];
+            $temp['lat'] = $row['lat'];
+            array_push($village_activities_array, $temp);
+        }
+
+        return $village_activities_array;
+    }
+
+    public function getLeaders(): array
+    {
+        $village_leaders_array = array();
+        $query = $this->con->prepare("SELECT `id`, `name`, `title`, `contact`, `role`, `job description`, `dateAdded`, `village_no` FROM `leaders` WHERE village_no = :village_id ");
+        $query->bindParam(":village_id", $this->no, PDO::PARAM_INT);
+        $query->execute();
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            array_push($village_leaders_array, $row['name']);
+        }
+
+        return $village_leaders_array;
+    }
+
+    public function getDeepWells(): array
+    {
+        $village_deepWell_array = array();
+        $query = $this->con->prepare("SELECT `id`, `name`, `description`, `depth`, `longitude`, `latitude`, `flowrate`, `water_testing_findings`, `water_testing_last_update`, `installationDate`, `drillDate`, `staticWaterLevel`, `lastMaintainence`, `InChargeName`, `InChargeContact`, `village_no`, `dateAdded`, `iconPath` FROM `deepwells` WHERE village_no = :village_id ");
+        $query->bindParam(":village_id", $this->no, PDO::PARAM_INT);
+        $query->execute();
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            array_push($village_deepWell_array, $row['name']);
+        }
+
+        return $village_deepWell_array;
+    }
+
+    public function getNeeds(): array
+    {
+        $village_needs_array = array();
+        $query = $this->con->prepare("SELECT `id`, `title`, `description`, `dateAdded`, `status`, `village_no`, `tags` FROM `needs` WHERE village_no = :village_id ");
+        $query->bindParam(":village_id", $this->no, PDO::PARAM_INT);
+        $query->execute();
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            array_push($village_needs_array, $row['title']);
+        }
+
+        return $village_needs_array;
+    }
+
+    public function getOutreach(): array
+    {
+        $village_outreach_array = array();
+        $query = $this->con->prepare("SELECT `id`, `title`, `description`, `startDate`, `endDate`, `dateAdded`, `village_no` FROM `outreach` WHERE village_no = :village_id ");
+        $query->bindParam(":village_id", $this->no, PDO::PARAM_INT);
+        $query->execute();
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            array_push($village_outreach_array, $row['title']);
+        }
+
+        return $village_outreach_array;
     }
 }

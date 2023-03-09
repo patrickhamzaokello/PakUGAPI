@@ -27,6 +27,11 @@ class Models
         $temp['sourceDeepWell'] = $village->getSourceDeepWell();
         $temp['priority'] = $village->getPriority();
         $temp['iconPath'] = $village->getIconPath();
+        $temp['activities'] = $village->getActivities();
+        $temp['leaders'] = $village->getLeaders();
+        $temp['deepWell'] = $village->getDeepWells();
+        $temp['needs'] = $village->getNeeds();
+        $temp['outreach'] = $village->getOutreach();
 
         return $temp;
     }

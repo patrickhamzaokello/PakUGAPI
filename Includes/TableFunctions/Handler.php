@@ -297,21 +297,13 @@ class Handler
         $village_id = (isset($_GET['villageID']) && $_GET['villageID']) ? htmlspecialchars(strip_tags($_GET["villageID"])) : '1';
 
 
-
-
-
-        $villageArray = array();
         $itemRecords = array();
 
         $model = new Models($this->conn);
 
-            array_push($villageArray, $model->villageModel($village_id));
-//            array_push($villageArray, $model->villageDetails($village_id));
-
-
         $itemRecords["version"] = $this->version;
         $itemRecords["page"] = 1;
-        $itemRecords["Village"] = $villageArray;
+        $itemRecords["Village"] = $model->villageModel($village_id);
         $itemRecords["total_pages"] = 1;
         $itemRecords["total_results"] = 1;
 

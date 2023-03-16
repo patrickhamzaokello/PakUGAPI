@@ -215,8 +215,8 @@ class Handler
             array_push($map_features, $row);
         }
         foreach ($map_features as $no) {
-            $mapData = new MapData($no['id'], $no['name'], $no['description'], $no['type'], $no['long'], $no['lat'],$no['iconPath']);
-            array_push($itemRecords["mapFeatures"], $mapData->mapModel());
+            $model = new Models($this->conn);
+            array_push($itemRecords["mapFeatures"], $model->mapModel($no['id'], $no['name'], $no['description'], $no['type'], $no['long'], $no['lat'],$no['iconPath']));
         }
 
 
@@ -266,6 +266,7 @@ class Handler
 
         if ($page == 1) {
             array_push($villageArray, $model->villageModel($village_id));
+//            array_push($villageArray, $model->villageDetails($village_id));
         }
 
         $other_villages = array();
@@ -289,6 +290,35 @@ class Handler
 
         return $itemRecords;
     }
+
+
+    function readSingleVillage(): array
+    {
+        $village_id = (isset($_GET['villageID']) && $_GET['villageID']) ? htmlspecialchars(strip_tags($_GET["villageID"])) : '1';
+
+
+
+
+
+        $villageArray = array();
+        $itemRecords = array();
+
+        $model = new Models($this->conn);
+
+            array_push($villageArray, $model->villageModel($village_id));
+//            array_push($villageArray, $model->villageDetails($village_id));
+
+
+        $itemRecords["version"] = $this->version;
+        $itemRecords["page"] = 1;
+        $itemRecords["Village"] = $villageArray;
+        $itemRecords["total_pages"] = 1;
+        $itemRecords["total_results"] = 1;
+
+        return $itemRecords;
+    }
+
+
 
 
     public function saveAuthUser($data): array

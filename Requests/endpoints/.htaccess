@@ -1,3 +1,4 @@
 RewriteEngine On    # Turn on the rewriting engine
 RewriteRule ^selectedVillage$ selectedVillage.php [NC,L]
+RewriteRule ^singleVillage$ singleVillage.php [NC,L]
 RewriteRule ^map$ map.php [NC,L]

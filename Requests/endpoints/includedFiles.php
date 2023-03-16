@@ -12,7 +12,6 @@ require "../../Includes/TableClasses/Village.php";
 
 
 include_once '../../Includes/TableFunctions/Models.php';
-include_once '../../Includes/TableFunctions/MapData.php';
 include_once '../../Includes/TableFunctions/Handler.php';
 
 

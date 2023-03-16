@@ -146,7 +146,12 @@ class Village
         $query->bindParam(":village_id", $this->no, PDO::PARAM_INT);
         $query->execute();
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-            array_push($village_leaders_array, $row['name']);
+            $temp = array();
+            $temp['id'] = $row['id'];
+            $temp['name'] = $row['name'];
+            $temp['title'] = $row['title'];
+            $temp['contact'] = $row['contact'];
+            array_push($village_leaders_array, $temp);
         }
 
         return $village_leaders_array;
@@ -159,7 +164,14 @@ class Village
         $query->bindParam(":village_id", $this->no, PDO::PARAM_INT);
         $query->execute();
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-            array_push($village_deepWell_array, $row['name']);
+
+            $temp = array();
+            $temp['id'] = $row['id'];
+            $temp['name'] = $row['name'];
+            $temp['depth'] = $row['depth'];
+            $temp['InChargeName'] = $row['InChargeName'];
+            array_push($village_deepWell_array, $temp);
+
         }
 
         return $village_deepWell_array;
@@ -172,7 +184,13 @@ class Village
         $query->bindParam(":village_id", $this->no, PDO::PARAM_INT);
         $query->execute();
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-            array_push($village_needs_array, $row['title']);
+
+            $temp = array();
+            $temp['id'] = $row['id'];
+            $temp['title'] = $row['title'];
+            $temp['status'] = $row['status'];
+            $temp['tags'] = $row['tags'];
+            array_push($village_needs_array, $temp);
         }
 
         return $village_needs_array;
@@ -185,7 +203,13 @@ class Village
         $query->bindParam(":village_id", $this->no, PDO::PARAM_INT);
         $query->execute();
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-            array_push($village_outreach_array, $row['title']);
+            $temp = array();
+            $temp['id'] = $row['id'];
+            $temp['title'] = $row['title'];
+            $temp['startDate'] = $row['startDate'];
+            $temp['endDate'] = $row['endDate'];
+            $temp['description'] = $row['description'];
+            array_push($village_outreach_array, $temp);
         }
 
         return $village_outreach_array;

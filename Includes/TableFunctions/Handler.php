@@ -298,12 +298,52 @@ class Handler
 
 
         $itemRecords = array();
+        $singleVillageCategory = array();
 
         $model = new Models($this->conn);
+        $village = new Village($this->conn, $village_id);
+
+
+//        Village Details
+        array_push($singleVillageCategory, $model->villageModel($village));
+
+        //        Village Details
+        $slider_temps = array();
+        $slider_temps['heading'] = "Village Activities";
+        $slider_temps['Activities'] = $village->getActivities();
+        array_push($singleVillageCategory, $slider_temps);
+
+        //        Village Details
+        $slider_temps = array();
+        $slider_temps['heading'] = "Village Needs";
+        $slider_temps['Needs'] = $village->getNeeds();
+        array_push($singleVillageCategory, $slider_temps);
+
+        //        Village Leaders
+        $slider_temps = array();
+        $slider_temps['heading'] = "Village Leaders";
+        $slider_temps['Leaders'] = $village->getLeaders();
+        array_push($singleVillageCategory, $slider_temps);
+
+        //        Village Deep Wells
+        $slider_temps = array();
+        $slider_temps['heading'] = "Village Deep Wells";
+        $slider_temps['DeepWell'] = $village->getDeepWells();
+        array_push($singleVillageCategory, $slider_temps);
+
+        //Village Outreach
+        $slider_temps = array();
+        $slider_temps['heading'] = "Village Outreach";
+        $slider_temps['Outreach'] = $village->getOutreach();
+        array_push($singleVillageCategory, $slider_temps);
+
+
+
+
 
         $itemRecords["version"] = $this->version;
         $itemRecords["page"] = 1;
-        $itemRecords["Village"] = $model->villageModel($village_id);
+        $itemRecords["SingleVillage"] = $singleVillageCategory;
         $itemRecords["total_pages"] = 1;
         $itemRecords["total_results"] = 1;
 

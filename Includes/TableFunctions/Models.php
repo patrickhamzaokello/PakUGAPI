@@ -24,9 +24,8 @@ class Models
         return $temp;
     }
 
-    function villageModel($no): array
+    function villageModel($village): array
     {
-        $village = new Village($this->conn, $no);
         $temp = array();
         $temp['id'] = $village->getNo();
         $temp['name'] = $village->getName();
@@ -42,50 +41,10 @@ class Models
         $temp['sourceDeepWell'] = $village->getSourceDeepWell();
         $temp['priority'] = $village->getPriority();
         $temp['iconPath'] = $village->getIconPath();
-        $temp['activities'] = $village->getActivities();
-        $temp['activities'] = $village->getActivities();
-        $temp['activities'] = $village->getActivities();
-        $temp['leaders'] = $village->getLeaders();
-        $temp['deepWell'] = $village->getDeepWells();
-        $temp['needs'] = $village->getNeeds();
-        $temp['outreach'] = $village->getOutreach();
-
-
-
-
-
         return $temp;
     }
 
 
-    function villageDetails($no): array
-    {
-        $village = new Village($this->conn, $no);
-        $result = [
-            'activities' => [
-                'heading' => 'Activities',
-                'details' =>$village->getActivities()
-            ],
-            'leaders' => [
-                'heading' => 'Leaders',
-                'details' =>$village->getLeaders()
-            ],
-            'deepWell' => [
-                'heading' => 'Deep Wells',
-                'details' =>$village->getDeepWells()
-            ],
-            'needs' => [
-                'heading' => 'Needs',
-                'details' =>$village->getNeeds()
-            ],
-            'outreach' => [
-                'heading' => 'Outreach',
-                'details' =>$village->getOutreach()
-            ]
-        ];
-
-        return $result;
-    }
 }
 
 

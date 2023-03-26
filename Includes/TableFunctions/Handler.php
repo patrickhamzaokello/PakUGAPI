@@ -453,5 +453,43 @@ class Handler
         return $itemRecords;
     }
 
+    public function getAllNeeds(): array
+    {
+        // Sanitize and validate the page parameter
+        $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT);
+        $page = ($page && $page > 0) ? intval($page) : 1;
+
+        // Calculate the limit and offset for pagination
+        $no_of_records_per_page = 15;
+        $offset = ($page - 1) * $no_of_records_per_page;
+
+        // Construct the query using prepared statements
+        $sql = "SELECT id, title, description, dateAdded, status, village_no, tags 
+            FROM needs 
+            ORDER BY dateAdded DESC 
+            LIMIT :offset, :limit";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $no_of_records_per_page, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Fetch the records and count the total number of results
+        $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $total_rows = $this->conn->query("SELECT COUNT(*) FROM `needs` ")->fetchColumn();
+        $total_pages = ceil($total_rows / $no_of_records_per_page);
+
+        // Construct the result array
+        $itemRecords = [
+            'page' => $page,
+            'version' => 1,
+            'notice_home' => $records,
+            'total_pages' => $total_pages,
+            'total_results' => $total_rows,
+        ];
+
+        return $itemRecords;
+    }
+
+
 
 }

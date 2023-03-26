@@ -519,7 +519,7 @@ class Handler
         $itemRecords = [
             'page' => $page,
             'version' => 1,
-            'notice_home' => $records,
+            'activities_home' => $records,
             'total_pages' => $total_pages,
             'total_results' => $total_rows,
         ];
